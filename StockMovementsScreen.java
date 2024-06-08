@@ -102,8 +102,7 @@ public class StockMovementsScreen extends JFrame {
         });
         inputPanel.add(deleteButton, gbc);
 
-        add(inputPanel, BorderLayout.NORTH);
-
+        gbc.gridy = 8;
         JButton backButton = new JButton("Geri Git");
         backButton.setBackground(Color.GRAY);
         backButton.setForeground(Color.WHITE);
@@ -114,9 +113,10 @@ public class StockMovementsScreen extends JFrame {
                 new MainScreen().setVisible(true); // Ana ekranı göster
             }
         });
-        gbc.gridy = 8;
         inputPanel.add(backButton, gbc);
-        
+
+        add(inputPanel, BorderLayout.NORTH);
+
         table = new JTable();
         table.setGridColor(Color.LIGHT_GRAY);
         table.setShowGrid(true);
@@ -136,7 +136,7 @@ public class StockMovementsScreen extends JFrame {
 
     private void loadMovements() {
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String query = "select A.*, B.urun_adi from stoktakip.stok_hareketleri A inner join stoktakip.urunler B on A.urun_id=B.urun_id";
+            String query = "SELECT A.*, B.urun_adi FROM stok_hareketleri A INNER JOIN urunler B ON A.urun_id = B.urun_id";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -168,45 +168,41 @@ public class StockMovementsScreen extends JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if(type.equals("Çıkış")){
-            try (Connection connection = DatabaseConnection.getConnection()) { //Update urunler set urunler.miktar=urunler.miktar - stok_harekerleri.miktar where stok_hareketleri.urun_id=urunler.urun_id
-                String query = "Update urunler set stok_miktari=stok_miktari - ? where urun_id=?";
+
+        if (type.equals("Çıkış")) {
+            try (Connection connection = DatabaseConnection.getConnection()) {
+                String query = "UPDATE urunler SET stok_miktari = stok_miktari - ? WHERE urun_id = ?";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, amount);
                 statement.setInt(2, productId);
-                
                 statement.executeUpdate();
                 loadMovements();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
 
-            try (Connection connection = DatabaseConnection.getConnection()) { //Update urunler set urunler.miktar=urunler.miktar - stok_harekerleri.miktar where stok_hareketleri.urun_id=urunler.urun_id
-                String query = "Update satis_raporlari set toplam_satis=toplam_satis + ? where urun_id=?";
+            try (Connection connection = DatabaseConnection.getConnection()) {
+                String query = "UPDATE satis_raporlari SET toplam_satis = toplam_satis + ? WHERE urun_id = ?";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, amount);
                 statement.setInt(2, productId);
-                
                 statement.executeUpdate();
                 loadMovements();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }else if(type.equals("Giriş")){
-            try (Connection connection = DatabaseConnection.getConnection()) { //Update urunler set urunler.miktar=urunler.miktar - stok_harekerleri.miktar where stok_hareketleri.urun_id=urunler.urun_id
-                String query = "Update urunler set stok_miktari=stok_miktari + ? where urun_id=?";
+        } else if (type.equals("Giriş")) {
+            try (Connection connection = DatabaseConnection.getConnection()) {
+                String query = "UPDATE urunler SET stok_miktari = stok_miktari + ? WHERE urun_id = ?";
                 PreparedStatement statement = connection.prepareStatement(query);
                 statement.setInt(1, amount);
                 statement.setInt(2, productId);
-                
                 statement.executeUpdate();
                 loadMovements();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-
-        
     }
 
     private void updateMovement() {

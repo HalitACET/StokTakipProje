@@ -21,6 +21,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ProductsScreen().setVisible(true);
+                dispose(); // MainScreen'i kapat
             }
         });
         panel.add(productsButton);
@@ -32,6 +33,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new StockMovementsScreen().setVisible(true);
+                dispose(); // MainScreen'i kapat
             }
         });
         panel.add(stockMovementsButton);
@@ -43,6 +45,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new SuppliersScreen().setVisible(true);
+                dispose(); // MainScreen'i kapat
             }
         });
         panel.add(suppliersButton);
@@ -54,6 +57,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new OrdersScreen().setVisible(true);
+                dispose(); // MainScreen'i kapat
             }
         });
         panel.add(ordersButton);
@@ -65,6 +69,7 @@ public class MainScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new SalesReportsScreen().setVisible(true);
+                dispose(); // MainScreen'i kapat
             }
         });
         panel.add(salesReportsButton);
@@ -93,50 +98,5 @@ public class MainScreen extends JFrame {
                 new MainScreen().setVisible(true);
             }
         });
-    }
-}
-
-class ProductsScreen extends JFrame {
-    public ProductsScreen() {
-        setTitle("Ürünler");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-}
-
-class StockMovementsScreen extends JFrame {
-    public StockMovementsScreen() {
-        setTitle("Stok Hareketleri");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-}
-
-class SuppliersScreen extends JFrame {
-    public SuppliersScreen() {
-        setTitle("Tedarikçiler");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-}
-
-class OrdersScreen extends JFrame {
-    public OrdersScreen() {
-        setTitle("Siparişler");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-}
-
-class SalesReportsScreen extends JFrame {
-    public SalesReportsScreen() {
-        setTitle("Satış Raporları");
-        setSize(300, 200);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setLocationRelativeTo(null);
     }
 }

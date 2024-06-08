@@ -29,6 +29,12 @@ public class SalesReportsScreen extends JFrame {
         });
         panel.add(loadButton, BorderLayout.NORTH);
 
+        table = new JTable();
+        table.setGridColor(Color.LIGHT_GRAY);
+        table.setShowGrid(true);
+        table.setFillsViewportHeight(true);
+        panel.add(new JScrollPane(table), BorderLayout.CENTER);
+
         JButton backButton = new JButton("Geri Git");
         backButton.setBackground(Color.GRAY);
         backButton.setForeground(Color.WHITE);
@@ -40,19 +46,13 @@ public class SalesReportsScreen extends JFrame {
             }
         });
         panel.add(backButton, BorderLayout.SOUTH);
-        
-        table = new JTable();
-        table.setGridColor(Color.LIGHT_GRAY);
-        table.setShowGrid(true);
-        table.setFillsViewportHeight(true);
-        panel.add(new JScrollPane(table), BorderLayout.CENTER);
 
         add(panel);
     }
 
     private void loadReports() {
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String query = "select A.*,B.urun_adi from stoktakip.satis_raporlari A inner join stoktakip.urunler B on A.urun_id=B.urun_id order by A.toplam_satis desc";
+            String query = "SELECT A.*, B.urun_adi FROM satis_raporlari A INNER JOIN urunler B ON A.urun_id = B.urun_id ORDER BY A.toplam_satis DESC";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 

@@ -103,21 +103,21 @@ public class ProductsScreen extends JFrame {
         });
         inputPanel.add(deleteButton, gbc);
 
+        gbc.gridy = 8;
+        JButton backButton = new JButton("Geri Git");
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // ProductsScreen penceresini kapat
+                new MainScreen().setVisible(true); // Ana ekranı göster
+            }
+        });
+        inputPanel.add(backButton, gbc);
+
         add(inputPanel, BorderLayout.NORTH);
 
-        JButton backButton = new JButton("Geri Git");
-backButton.setBackground(Color.GRAY);
-backButton.setForeground(Color.WHITE);
-backButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        dispose(); // OrdersScreen penceresini kapat
-        new MainScreen().setVisible(true); // Ana ekranı göster
-    }
-});
-gbc.gridy = 8;
-inputPanel.add(backButton, gbc);
-        
         table = new JTable();
         table.setGridColor(Color.LIGHT_GRAY);
         table.setShowGrid(true);
@@ -137,7 +137,7 @@ inputPanel.add(backButton, gbc);
 
     private void loadProducts() {
         try (Connection connection = DatabaseConnection.getConnection()) {
-            String query = "select A.*,B.kategori_adi from stoktakip.urunler A INNER JOIN stoktakip.kategoriler B on A.kategori_id=B.kategori_id";
+            String query = "SELECT A.*, B.kategori_adi FROM urunler A INNER JOIN kategoriler B ON A.kategori_id = B.kategori_id";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 

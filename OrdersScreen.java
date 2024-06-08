@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -94,21 +95,20 @@ public class OrdersScreen extends JFrame {
         });
         inputPanel.add(deleteButton, gbc);
 
-        add(inputPanel, BorderLayout.NORTH);
-
+        gbc.gridy = 7;
         JButton backButton = new JButton("Geri Git");
-backButton.setBackground(Color.GRAY);
-backButton.setForeground(Color.WHITE);
-backButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        dispose(); // OrdersScreen penceresini kapat
-        new MainScreen().setVisible(true); // Ana ekranı göster
-    }
-});
-gbc.gridy = 7;
-inputPanel.add(backButton, gbc);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // OrdersScreen penceresini kapat
+                new MainScreen().setVisible(true); // Ana ekranı göster
+            }
+        });
+        inputPanel.add(backButton, gbc);
 
+        add(inputPanel, BorderLayout.NORTH);
 
         table = new JTable();
         table.setGridColor(Color.LIGHT_GRAY);

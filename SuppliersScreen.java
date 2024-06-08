@@ -86,20 +86,20 @@ public class SuppliersScreen extends JFrame {
         });
         inputPanel.add(deleteButton, gbc);
 
-        add(inputPanel, BorderLayout.NORTH);
-
+        gbc.gridy = 6;
         JButton backButton = new JButton("Geri Git");
-backButton.setBackground(Color.GRAY);
-backButton.setForeground(Color.WHITE);
-backButton.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        dispose(); // SuppliersScreen penceresini kapat
-        new MainScreen().setVisible(true); // Ana ekranı göster
-    }
-});
-gbc.gridy = 6;
-inputPanel.add(backButton, gbc);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // SuppliersScreen penceresini kapat
+                new MainScreen().setVisible(true); // Ana ekranı göster
+            }
+        });
+        inputPanel.add(backButton, gbc);
+
+        add(inputPanel, BorderLayout.NORTH);
 
         table = new JTable();
         table.setGridColor(Color.LIGHT_GRAY);
